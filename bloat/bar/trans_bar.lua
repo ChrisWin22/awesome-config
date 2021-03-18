@@ -10,6 +10,13 @@ local helpers = require("helpers")
 local icon_theme = "sheet"
 local icons = require("icons")
 
+beautiful.wibar_height = dpi(32)
+beautiful.wibar_margin = dpi(15)
+beautiful.wibar_spacing = dpi(15)
+beautiful.wibar_bg = "#292b34"
+beautiful.systray_icon_size = dpi(15)
+beautiful.border_radius = dpi(12)
+
 local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
                            2
 
@@ -19,7 +26,7 @@ local radius = beautiful.border_radius - 3
 -- Create horizontal rounded bars
 local function format_progress_bar(bar)
     bar.forced_width = dpi(100)
-    bar.shape = gears.shape.rounded_bar
+    bar.shape = gears.shape.ro32unded_bar
     bar.bar_shape = gears.shape.rounded_bar
     bar.background_color = beautiful.xcolor8
 
@@ -29,7 +36,6 @@ end
 -- Awesome Panel -----------------------------------------------------------
 
 -- Init music, panel, and cal
--- local mpd = require("widgets.mpd")
 local panelPop = require('bloat.pop.bot_pan')
 local awesome_icon = wibox.widget {
     {
@@ -44,7 +50,7 @@ local awesome_icon = wibox.widget {
     widget = wibox.container.background
 }
 
-local sidebar_activator = wibox({
+--[[local sidebar_activator = wibox({
     width = 1,
     visible = true,
     ontop = true,
@@ -56,28 +62,35 @@ sidebar_activator.height = dpi(1000)
 sidebar_activator:connect_signal("mouse::enter",
                                  function() panelPop.visible = true end)
 
-awful.placement.left(sidebar_activator)
+awful.placement.left(sidebar_activator)--]]
 
--- awesome_icon:connect_signal("mouse::enter",
---                            function() panelPop.visible = true end)
+ awesome_icon:connect_signal("mouse::enter",
+                            function() panelPop.visible = true end)
 
 awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
     panelPop.visible = true
     awesome_icon.bg = beautiful.xcolor0
 end)))
 
-panelPop:connect_signal("mouse::leave", function()
+awesome_icon:connect_signal("mouse::leave", function()
     panelPop.visible = false
     awesome_icon.bg = beautiful.xbackground
 end)
+
+
+-- Text Clock -----------------------------------------------------------------
+--[[os.setlocale(os.getenv("LANG")) -- to localize the clock
+local clockicon = gears.filesystem.get_configuration_dir().."icons/sheet/clock.png",
+local amytextclock = wibox.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#535f7a", ">") .. markup("#de5e1e", " %H:%M "))
+mytextclock.font = theme.font--]]
 
 -- Notifs Panel ---------------------------------------------------------------
 
 local notifPop = require("bloat.pop.notif")
 local notif_icon = wibox.widget {
     widget = wibox.widget.imagebox,
-    image = icons.notif,
-    resize = true
+    image = gears.filesystem.get_configuration_dir().."icons/sheet/notif.png",
+    resize =true
 }
 
 notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
@@ -85,8 +98,8 @@ notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
-local battery_bar = require("bloat.widgets.battery_bar")
-local battery = format_progress_bar(battery_bar)
+--local battery_bar = require("bloat.widgets.battery_bar")
+--local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -254,7 +267,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             -- On desktop, no need for battery
-            {
+            --[[{
                 {
                     {
                         battery,
@@ -274,7 +287,7 @@ awful.screen.connect_for_each_screen(function(s)
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
-            },
+            },--]]
             nil,
             helpers.horizontal_pad(0),
             {
@@ -315,7 +328,6 @@ awful.screen.connect_for_each_screen(function(s)
                 left = 5,
                 widget = wibox.container.margin
             },
-
             {
                 {
                     {

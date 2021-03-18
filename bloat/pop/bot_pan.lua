@@ -84,12 +84,12 @@ volume:buttons(gears.table.join( -- Left click - Mute / Unmute
 --
 --- {{{ Brightness Widget
 
-local brightness_bar = require("bloat.widgets.brightness_arc")
+--[[local brightness_bar = require("bloat.widgets.brightness_arc")
 local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
                                            beautiful.xcolor5 ..
                                            "'><b>SUN</b></span>")
 
--- local brightness = require("bloat.widgets.brightness_arc")
+-- local brightness = require("bloat.widgets.brightness_arc")--]]
 
 --- }}}
 
@@ -345,12 +345,13 @@ local panelWidget = wibox.widget {
 }
 
 local width = 1000
+local height = 400
 local margin = 10
 
 local panelPop = popupLib.create(awful.screen.focused().geometry.width / 2 -
                                      width / 2, awful.screen.focused().geometry
-                                     .height / 2 + 165, nil, width, panelWidget,
-                                 dpi(25), true, true, false, false)
+                                     .height / 2 - height / 2, nil, width, panelWidget,
+                                 dpi(25), true, true, true, true)
 
 panelPop:set_xproperty("WM_NAME", "panel")
 

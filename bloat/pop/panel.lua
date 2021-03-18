@@ -147,7 +147,7 @@ local cpu = format_progress_bar(cpu_bar, "<span foreground='" ..
 
 --- {{{ Clock
 
-local fancy_time_widget = wibox.widget.textclock("%H%M")
+local fancy_time_widget = wibox.widget.textclock("%H%M", 1)
 fancy_time_widget.markup = fancy_time_widget.text:sub(1, 2) ..
                                "<span foreground='" .. beautiful.xcolor12 ..
                                "'>" .. fancy_time_widget.text:sub(3, 4) ..
@@ -164,7 +164,7 @@ fancy_time_widget.font = beautiful.font_name .. "55"
 
 local fancy_time = {fancy_time_widget, layout = wibox.layout.fixed.vertical}
 
-local fancy_date_widget = wibox.widget.textclock("%m/%d/%Y")
+local fancy_date_widget = wibox.widget.textclock("%m/%d/%Y", 1)
 fancy_date_widget.markup = fancy_date_widget.text:sub(1, 3) ..
                                "<span foreground='" .. beautiful.xcolor12 ..
                                "'>" .. fancy_date_widget.text:sub(4, 6) ..
@@ -190,7 +190,6 @@ local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 ---}}}
 
 -- {{{ Music Widget
-
 --[[
 local mpd = require("bloat.widgets.mpd")
 local mpd_box = create_boxed_widget(mpd, 400, 125, beautiful.xcolor0)
@@ -208,7 +207,6 @@ local mpd_area = {
     layout = wibox.layout.align.vertical
 }
 --]]
-
 local spot = require("bloat.widgets.spot")
 local spot_box = create_boxed_widget(spot, 400, nil, beautiful.xcolor0)
 

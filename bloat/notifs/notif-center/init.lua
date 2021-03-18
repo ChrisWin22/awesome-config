@@ -6,7 +6,7 @@ local notif_header = wibox.widget {
     markup = 'Notification Center',
     font = beautiful.font_name .. "12",
     align = 'center',
-    valign = 'center',
+    valign = 'bottom',
     widget = wibox.widget.textbox
 }
 
